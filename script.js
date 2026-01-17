@@ -21,15 +21,15 @@ function getHumanChoice() {
   const scissorsButton = document.querySelector(".js-scissors-button");
   
   rockButton.addEventListener("click", () => {
-    playRound("Rock");
+    document.querySelector(".js-results-container").innerHTML = playRound("Rock");
   });
 
   paperButton.addEventListener("click", () => {
-    playRound("Paper");
+    document.querySelector(".js-results-container").innerHTML = playRound("Paper");
   });
 
   scissorsButton.addEventListener("click", () => {
-    playRound("Scissors");
+    document.querySelector(".js-results-container").innerHTML = playRound("Scissors");
   });
 }
 
@@ -38,15 +38,18 @@ let computerScore = 0;
 
 function playRound(humanChoice) {
   const computerChoice = getComputerChoice();
+  let results;
   if (
     (humanChoice === "Rock" && computerChoice === "Rock") ||
     (humanChoice === "Paper" && computerChoice === "Paper") ||
     (humanChoice === "Scissors" && computerChoice === "Scissors")
   ) {
-    console.log(`Tie 
-You: ${humanChoice} computer: ${computerChoice}
-Your score: ${humanScore}
-Computer score: ${computerScore}`);
+    results = 
+    `Tie 
+      You: ${humanChoice} Computer: ${computerChoice}
+      Your score: ${humanScore}
+      Computer score: ${computerScore}
+    `
   } else if (
     (humanChoice === "Rock" && computerChoice === "Scissors") ||
     (humanChoice === "Paper" && computerChoice === "Rock") ||
@@ -54,10 +57,13 @@ Computer score: ${computerScore}`);
   ) {
 
     humanScore++;
-    console.log(`You win! 
-You: ${humanChoice} computer: ${computerChoice}
-Your score: ${humanScore}
-Computer score: ${computerScore}`);
+    results = 
+    `
+      You win! 
+      You: ${humanChoice} Computer: ${computerChoice}
+      Your score: ${humanScore}
+      Computer score: ${computerScore}
+    `
   } else if (
     (humanChoice === "Rock" && computerChoice === "Paper") ||
     (humanChoice === "Paper" && computerChoice === "Scissors") ||
@@ -65,9 +71,14 @@ Computer score: ${computerScore}`);
   ) {
 
     computerScore++;
-    console.log(`You lose 
-You: ${humanChoice} computer: ${computerChoice}
-Your score: ${humanScore}
-Computer score: ${computerScore}`);
+    results = 
+    `
+      You lose 
+      You: ${humanChoice} Computer: ${computerChoice}
+      Your score: ${humanScore}
+      Computer score: ${computerScore}
+    `
   }
+
+  return results;
 }
