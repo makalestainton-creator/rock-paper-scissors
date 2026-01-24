@@ -21,15 +21,15 @@ function getHumanChoice() {
   const scissorsButton = document.querySelector(".js-scissors-button");
   
   rockButton.addEventListener("click", () => {
-    document.querySelector(".js-results-container").innerHTML = playRound("Rock");
+    document.querySelector(".js-results-container").innerText = playRound("Rock");
   });
 
   paperButton.addEventListener("click", () => {
-    document.querySelector(".js-results-container").innerHTML = playRound("Paper");
+    document.querySelector(".js-results-container").innerText = playRound("Paper");
   });
 
   scissorsButton.addEventListener("click", () => {
-    document.querySelector(".js-results-container").innerHTML = playRound("Scissors");
+    document.querySelector(".js-results-container").innerText = playRound("Scissors");
   });
 }
 
@@ -40,30 +40,13 @@ function playRound(humanChoice) {
   const computerChoice = getComputerChoice();
   let results;
   if (
-    (humanChoice === "Rock" && computerChoice === "Rock") ||
-    (humanChoice === "Paper" && computerChoice === "Paper") ||
-    (humanChoice === "Scissors" && computerChoice === "Scissors")
-  ) {
-    results = 
-    `Tie 
-      You: ${humanChoice} Computer: ${computerChoice}
-      Your score: ${humanScore}
-      Computer score: ${computerScore}
-    `
-  } else if (
     (humanChoice === "Rock" && computerChoice === "Scissors") ||
     (humanChoice === "Paper" && computerChoice === "Rock") ||
     (humanChoice === "Scissors" && computerChoice === "Paper")
   ) {
 
     humanScore++;
-    results = 
-    `
-      You win! 
-      You: ${humanChoice} Computer: ${computerChoice}
-      Your score: ${humanScore}
-      Computer score: ${computerScore}
-    `
+
   } else if (
     (humanChoice === "Rock" && computerChoice === "Paper") ||
     (humanChoice === "Paper" && computerChoice === "Scissors") ||
@@ -71,14 +54,34 @@ function playRound(humanChoice) {
   ) {
 
     computerScore++;
-    results = 
-    `
-      You lose 
-      You: ${humanChoice} Computer: ${computerChoice}
-      Your score: ${humanScore}
-      Computer score: ${computerScore}
-    `
   }
 
-  return results;
+  if(humanScore === 5) {
+    results = `
+    You win
+    Your score: ${humanScore}
+    Computer score: ${computerScore}
+    `;
+
+    humanScore = 0;
+    computerScore =0;
+
+    return results;
+  } else if(computerScore === 5) {
+    results = `
+      Computer wins
+      Computer score: ${computerScore}
+      Your score: ${humanScore}
+    `;
+
+    humanScore = 0;
+    computerScore =0;
+
+    return results;
+  } else if(humanScore < 5 && computerScore < 5) {
+    return results = `
+    You: ${humanChoice} 
+    Computer: ${computerChoice}
+    `
+  }
 }
